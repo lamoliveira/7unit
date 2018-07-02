@@ -26,7 +26,7 @@ $("#add-train").on("click", function (event) {
     // Don't refresh the page!
     event.preventDefault();
 
-    name = $("#name-input").val().trim();
+    name = $("#train-name-input").val().trim();
     destination = $("#destination-input").val().trim();
     firsttraintime = $("#first-train-input").val().trim();
     frequency = $("#frequency-input").val().trim();

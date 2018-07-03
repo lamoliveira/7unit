@@ -14,47 +14,56 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var trainsRef = database.ref('trains');
 
-// Initial Values
-var name = "";
-var destination = "";
-var firsttraintime = "";
-var frequency = 0;
-
 // Capture Button Click
 $("#add-train").on("click", function (event) {
+    event.preventDefault();
     console.log("addtrainclicked");
     // Don't refresh the page!
     //event.preventDefault();
-
     name = $("#train-name-input").val().trim();
     destination = $("#destination-input").val().trim();
     firsttraintime = $("#first-train-input").val().trim();
-    frequency = $("#frequency-input").val().trim();
+    frequency = $("#frequency-input").val().trim(); 
+    
+  
+    var newtrain = {
+        name: name,
+        destination: destination,
+        firsttraintime: firsttraintime,
+        frequency: frequency};
 
+
+    trainsRef.push(newtrain);
+    /*
+    name = $("#train-name-input").val().trim();
+    destination = $("#destination-input").val().trim();
+    firsttraintime = $("#first-train-input").val().trim();
+    frequency = $("#frequency-input").val().trim(); 
+    
     trainsRef.push({
         name: name,
         destination: destination,
         firsttraintime: firsttraintime,
         frequency: frequency
         //,        dateadded: firebase.database.ServerValue.TIMESTAMP
-    });
+    });*/
     alert("Train has been added. (This schedule refreshes every 60 secs)");
-
     $("#train-name-input").val("");
     $("#destination-input").val("");
     $("#first-train-input").val("");
     $("#frequency-input").val("");
-
 });
 
 $("#del-train").on("click", function (event) {
-    trainName = $("#train-name-input").val().trim(); 
+    name = $("#train-name-input").val().trim(); 
     var ref = trainsRef.orderByKey();
 
     ref.once("value").then(function (snapshot) {
 
         snapshot.forEach(function (childSnapshot) {
-            var childname = childSnapshot.val().Name; // match train name 
+            var childname = childSnapshot.val().name; // match train name 
+            console.log("name search:" + name);
+            console.log("child: "+ childname);
             if (name === childname) { // train name match database value
                 childSnapshot.ref.remove(); // remove object
             }
@@ -79,30 +88,23 @@ trainsRef.on("child_added", function (snapshot) {
     firsttraintime = snapshot.val().firsttraintime;
     frequency = snapshot.val().frequency;
 
-    var randomDate = "02/23/1999";
-    console.log(moment().format("DD/MM/YY hh:mm A"));
-
-    console.log(name);
-    console.log(destination);
-    console.log(firsttraintime);
-    console.log(moment(firsttraintime).diff(moment(), "minutes"));
-    var months = moment(firsttraintime).diff(moment(), "minutes");
-    console.log(frequency);
+    var traintimeconverted = moment(firsttraintime, "hh:mm").subtract(1, "years");
+    var difftime = moment().diff(moment(traintimeconverted), "minutes");
+    var timerounded = difftime % frequency;
+    var minutesaway = frequency - timerounded;
+    var nextarrival = moment().add(minutesaway, "minutes").format("hh:mm");
 
     // Create a new variable that will hold a "<th>" tag.
     var train = $("#train");
-
     var newrow = $("<tr>");
-    var nextarrival = "15:30 PM";
-    var minutesaway = "10";
     //            newrow.append("<td>" + name + "</td>"  + "<td>" + destination + "</td>" + "<td>" + firsttraintime + "</td>" + "<td>" + frequency + "</tr>") ;
-    newrow.append("<td>" + name + "</td>" + "<td>" + destination + "</td>" + "<td>" + moment(firsttraintime).format("hh:mm A") + "</td>" + "<td>" + nextarrival + "</td>" + "<td>" + minutesaway + "</tr>");
+    newrow.append("<td>" + name + "</td>" + "<td>" + destination + "</td>" + "<td>" + frequency + "</td>" + "<td>" + nextarrival + "</td>" + "<td>" + minutesaway + "</tr>");
     train.append(newrow);
 
     // Handle the errors
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
-})
+});
 
 
 

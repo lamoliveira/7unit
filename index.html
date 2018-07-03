@@ -3,50 +3,48 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="60" /> 
+    <meta http-equiv="refresh" content="60" />
     <title>Anytime Train</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- LINK TO FIREBASE GOES HERE -->
     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-
+    
+    <!-- Moment.js Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="assets/javascript/trains.js"></script>
-
-
-
-
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    
+    
 </head>
 
 <body>
-
+    
     <div class="container">
-
+        
         <br>
-
+        
         <!-- Jumbotron -->
         <div class="jumbotron">
             <h1 class="text-center">Anytime is train time
             </h1>
             <p class="text-center">Cho Cho. Che Che.</p>
         </div>
-
+        
         <div id="table-train" class="text-center">
             <h3>Current train schedule</h3>
             <table id="train" class="table">
                 <th class="table-train">Train Name</th>
-
+                
                 <th>Destination</th>
-
+                
                 <th>Frequency(min)</th>
-
+                
                 <th>Next Arrival</th>
-
+                
                 <th>Minutes Away</th>
             </table>
         </div>
@@ -74,12 +72,13 @@
                 <button class="btn btn-danger" id="del-train" type="submit">Delete</button>
                 <p class="direction">* Delete train button requires a exact matching '
                     <span>Train Name</span>' input</p>
-
-            </form>
+                    
+                </form>
+            </div>
         </div>
-    </div>
+        <script src="assets/javascript/trains.js"></script>
+        
+        
+    </body>
     
-
-</body>
-
-</html>
+    </html>

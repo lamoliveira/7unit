@@ -25,9 +25,9 @@ body {
 }
 
 .jumbotron{
+  background-image: url("assets/image/map.jpg");
   background-color: aquamarine;
   height: 160px;
-
 }
 .table{
 border: 1px solid aquamarine;

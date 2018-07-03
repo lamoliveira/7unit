@@ -21,7 +21,7 @@ var firsttraintime = "";
 var frequency = 0;
 
 // Capture Button Click
-function addTrain() {
+$("#add-train").on("click", function (event) {
     console.log("addtrainclicked");
     // Don't refresh the page!
     //event.preventDefault();
@@ -38,8 +38,23 @@ function addTrain() {
         frequency: frequency
         //,        dateadded: firebase.database.ServerValue.TIMESTAMP
     });
+    alert("Train has been added. (This schedule refreshes every 60 secs)");
+});
 
-};
+$("#del-train").on("click", function (event) {
+    trainName = $("#train-name-input").val().trim(); 
+    var ref = trainsRef.orderByKey();
+
+    ref.once("value").then(function (snapshot) {
+
+        snapshot.forEach(function (childSnapshot) {
+            var childname = childSnapshot.val().Name; // match train name 
+            if (name === childname) { // train name match database value
+                childSnapshot.ref.remove(); // remove object
+            }
+        });
+    });
+});
 
 // Firebase watcher + initial loader HINT: .on("value")
 trainsRef.on("child_added", function (snapshot) {
@@ -83,4 +98,6 @@ trainsRef.on("child_added", function (snapshot) {
     console.log("Errors handled: " + errorObject.code);
 })
 
-$(document).on("click", "#train-add", addTrain)
+
+
+//$(document).on("click", "#train-add", addTrain)

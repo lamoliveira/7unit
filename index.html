@@ -2,8 +2,8 @@
 <html lang="en-us">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="60" /> 
     <title>Anytime Train</title>
 
     <!-- Bootstrap -->
@@ -54,23 +54,27 @@
             <h3>Add train</h3>
             <!-- add train Form (note the various input "types")-->
             <form>
-                <div class="form-group row">
+                <div class="form-group">
                     <label for="train-name-input">Train Name</label>
                     <input class="form-control" id="train-name-input" type="text">
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label for="destination-input">Destination</label>
                     <input class="form-control" id="destination-input" type="text">
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label for="first-train-input">First Train Time(HH:mm - military time)</label>
                     <input class="form-control" id="first-train-input" type="time">
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <label for="frequency-input">Frequency (min)</label>
                     <input class="form-control" id="frequency-input" type="number"></input>
                 </div>
-                <button  id="add-train"  type="button" >Submit</button>
+                <button class="btn btn-success" id="add-train"  type="submit" >Submit</button>
+                <button class="btn btn-danger" id="del-train" type="submit">Delete</button>
+                <p class="direction">* Delete train button requires a exact matching '
+                    <span>Train Name</span>' input</p>
+
             </form>
         </div>
     </div>

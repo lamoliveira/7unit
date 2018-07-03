@@ -21,10 +21,10 @@ var firsttraintime = "";
 var frequency = 0;
 
 // Capture Button Click
-$("#add-train").on("click", function (event) {
+function addTrain() {
     console.log("addtrainclicked");
     // Don't refresh the page!
-    event.preventDefault();
+    //event.preventDefault();
 
     name = $("#train-name-input").val().trim();
     destination = $("#destination-input").val().trim();
@@ -39,7 +39,7 @@ $("#add-train").on("click", function (event) {
         //,        dateadded: firebase.database.ServerValue.TIMESTAMP
     });
 
-});
+};
 
 // Firebase watcher + initial loader HINT: .on("value")
 trainsRef.on("child_added", function (snapshot) {
@@ -81,4 +81,6 @@ trainsRef.on("child_added", function (snapshot) {
     // Handle the errors
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
-});
+})
+
+$(document).on("click", "#train-add", addTrain)

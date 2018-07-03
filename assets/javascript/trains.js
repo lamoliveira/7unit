@@ -39,6 +39,12 @@ $("#add-train").on("click", function (event) {
         //,        dateadded: firebase.database.ServerValue.TIMESTAMP
     });
     alert("Train has been added. (This schedule refreshes every 60 secs)");
+
+    $("#train-name-input").val("");
+    $("#destination-input").val("");
+    $("#first-train-input").val("");
+    $("#frequency-input").val("");
+
 });
 
 $("#del-train").on("click", function (event) {
